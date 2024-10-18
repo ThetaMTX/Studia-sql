@@ -6,7 +6,7 @@ This project is a web application built with Django and FastAPI that allows user
 ## Features
 - User authentication system
 - Upload and manage patient examinations
-- Classify images using a trained PyTorch model
+- Classify images using a trained PyTorch model (not included :c)
 - View and manage patient information, including test records
 - Responsive design for easy use on various devices
 
@@ -38,11 +38,11 @@ This project is a web application built with Django and FastAPI that allows user
 python -m venv venv
 ```
 # Activate the virtual environment
-# Windows
+## Windows
 ```
 .\venv\Scripts\activate
 ```
-# macOS/Linux
+## macOS/Linux
 ```
 source venv/bin/activate
 ```
