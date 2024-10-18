@@ -48,15 +48,15 @@ source venv/bin/activate
 ```
 3. Install the required packages:
 ```
-
+pip install -r requirements.txt
 ```
 4. Apply database migrations:
 ```
-
+python manage.py migrate
 ```
 5. Create a superuser (optional):
 ```
-
+python manage.py createsuperuser
 ```
 6. Run the application:
 ```
