@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patientsasda List</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'patients/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'logout' %}" style="float: right; padding: 10px; background-color: #f44336; color: white; border: none; border-radius: 5px; text-decoration: none;">Logout</a>
+        <h1>Patient List</h1>
+
+        <div>
+            <a href="?sort=first_name">Sort by First Name</a>
+            <a href="?sort=last_name">Sort by Last Name</a>
+            <a href="?sort=date_of_birth">Sort by Date of Birth</a>
+        </div>
+        <ul>
+            {% for patient in patients %}
+                <li>
+                    {{ patient.first_name }} {{ patient.last_name }} - Date of Birth: {{ patient.date_of_birth }}
+                    <a href="{% url 'examination_list' patient.pk %}">View Examinations</a>
+                    <a href="{% url 'edit_patient' patient.pk %}">Edit</a>
+                    <a href="{% url 'delete_patient' patient.pk %}">Delete</a>
+                </li>
+            {% empty %}
+                <li>No patients found.</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'add_patient' %}">Add Patient</a>
+    </div>
+</body>
+</html>

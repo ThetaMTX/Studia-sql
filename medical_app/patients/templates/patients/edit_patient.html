@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Patient</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'patients/edit_add.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Edit Patient: {{ patient.first_name }} {{ patient.last_name }}</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <label for="id_first_name">First Name:</label>
+            <input type="text" id="id_first_name" name="first_name" value="{{ patient.first_name }}" required>
+
+            <label for="id_last_name">Last Name:</label>
+            <input type="text" id="id_last_name" name="last_name" value="{{ patient.last_name }}" required>
+
+            <label for="id_date_of_birth">Date of Birth:</label>
+            <input type="date" id="id_date_of_birth" name="date_of_birth" value="{{ patient.date_of_birth|date:'Y-m-d' }}" required>
+
+            <button type="submit">Save Changes</button>
+        </form>
+
+        <a href="{% url 'patient_list' %}" class="back-button">Cancel</a>
+    </div>
+</body>
+</html>

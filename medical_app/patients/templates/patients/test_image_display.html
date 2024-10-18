@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Image Direct Display</title>
+    {% load static %}
+</head>
+<body>
+    <div class="container">
+        <h2>Direct Image Test</h2>
+        <img src="{{ image_url }}" alt="Test Image" style="max-width: 512px;">
+
+        {% if image_url %}
+            <p>Image URL: {{ image_url }}</p>
+        {% else %}
+            <p>No image available.</p>
+        {% endif %}
+
+        <a href="{% url 'patient_list' %}" class="back-button">Back to Patient List</a>
+    </div>
+</body>
+</html>

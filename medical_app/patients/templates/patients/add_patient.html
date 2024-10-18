@@ -1,0 +1,9 @@
+<h1>Add Patient</h1>
+{% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'patients/edit_add.css' %}">
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Patient</button>
+</form>
+<a href="{% url 'patient_list' %}" class="back-button">Back to Patient List</a>

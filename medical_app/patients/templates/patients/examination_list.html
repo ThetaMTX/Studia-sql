@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examination List</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'patients/edit_add.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Examinations for {{ patient.first_name }} {{ patient.last_name }}</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for examination in examinations %}
+                <tr>
+                    <td>{{ examination.date }}</td>
+                    <td>{{ examination.description }}</td>
+                    <td>
+                        {% if examination.images %}
+                        <img src="{{ examination.images.url }}" alt="Examination Image" style="width: 100px;">
+                        {% else %}
+                        No image available.
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'edit_examination' examination.pk patient.pk %}">Edit</a> |
+                        <a href="{% url 'delete_examination' patient.pk examination.pk %}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{% url 'add_examination' patient.pk %}">Add New Examination</a>
+        <a href="{% url 'patient_list' %}" class="back-button">Back to Patient List</a>
+    </div>
+</body>
+</html>

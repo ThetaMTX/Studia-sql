@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Examination</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'patients/edit_add.css' %}">
+</head>
+<body>
+    <div class="container">
+        <!-- Examination Form for Uploading -->
+        <div class="upload-container">
+            <h2>Add Examination</h2>
+            <!-- Ensure the form has a correct action -->
+            <form method="post" enctype="multipart/form-data" id="uploadForm" action="{% url 'add_examination' patient.pk %}">
+                {% csrf_token %}
+                <label for="id_image">Select Image:</label>
+                {{ form.images }}
+
+                <label for="id_description">Description:</label>
+                {{ form.description }}
+
+                <!-- Ensure the button is visible and clickable -->
+                <button type="submit">Add Examination</button>
+            </form>
+
+            <!-- Show the uploaded image if it exists -->
+            {% if form.instance.image %}
+                <h3>Uploaded Image:</h3>
+                <img src="{{ form.instance.image.url }}" alt="Examination Image">
+            {% endif %}
+
+            <!-- Back button to return to the examination list -->
+            <a href="{% url 'examination_list' patient.pk %}" class="back-button">Back to Examination List</a>
+        </div>
+
+        <!-- Image Classification Section -->
+        <div class="classify-container">
+            <h2>Classify Image</h2>
+            <form id="classifyForm" onsubmit="classifyImage(event)">
+                <label for="classify_image">Select Image for Classification:</label>
+                <input type="file" name="file" accept="image/*" required>
+
+                <button type="submit">Classify</button>
+            </form>
+            <!-- Display classification result -->
+            <h2>Response:</h2>
+            <pre id="result"></pre>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<h1>Delete Examination</h1>
+{% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'patients/styles.css' %}">
+<p>Are you sure you want to delete the examination for {{ examination.date }}?</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Confirm Delete</button>
+</form>
+<a href="{% url 'examination_list' examination.patient.id %}">Cancel</a>
