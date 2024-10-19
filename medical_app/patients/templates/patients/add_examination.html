@@ -9,45 +9,99 @@
 </head>
 <body>
     <div class="container">
-        <!-- Examination Form for Uploading -->
         <div class="upload-container">
             <h2>Add Examination</h2>
-            <!-- Ensure the form has a correct action -->
-            <form method="post" enctype="multipart/form-data" id="uploadForm" action="{% url 'add_examination' patient.pk %}">
-                {% csrf_token %}
-                <label for="id_image">Select Image:</label>
-                {{ form.images }}
+            <form method="post" enctype="multipart/form-data" id="uploadForm">
+    {% csrf_token %}
 
-                <label for="id_description">Description:</label>
-                {{ form.description }}
+    <label for="id_image">Select Image:</label>
+    <input type="file" id="imageInput" name="images" accept="image/*" onchange="previewImage();" required>
 
-                <!-- Ensure the button is visible and clickable -->
-                <button type="submit">Add Examination</button>
-            </form>
+    <br>
+    <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 512px;"/>
+    <br>
 
-            <!-- Show the uploaded image if it exists -->
-            {% if form.instance.image %}
-                <h3>Uploaded Image:</h3>
-                <img src="{{ form.instance.image.url }}" alt="Examination Image">
-            {% endif %}
+    <label for="id_description">Description:</label>
+    <textarea id="id_description" name="description" rows="4" required></textarea>
 
-            <!-- Back button to return to the examination list -->
-            <a href="{% url 'examination_list' patient.pk %}" class="back-button">Back to Examination List</a>
-        </div>
+    <button type="submit">Add Examination</button>
+</form>
 
-        <!-- Image Classification Section -->
-        <div class="classify-container">
-            <h2>Classify Image</h2>
-            <form id="classifyForm" onsubmit="classifyImage(event)">
-                <label for="classify_image">Select Image for Classification:</label>
-                <input type="file" name="file" accept="image/*" required>
+<a href="{% url 'examination_list' patient.pk %}" class="back-button">Back to Examination List</a>
 
-                <button type="submit">Classify</button>
-            </form>
-            <!-- Display classification result -->
-            <h2>Response:</h2>
-            <pre id="result"></pre>
-        </div>
+<!-- Classify Image Form -->
+<div class="classify-container">
+    <h2>Classify Image</h2>
+    <form id="classifyForm" onsubmit="classifyImage(event)">
+        <label for="classify_image">Select Image for Classification:</label>
+        <input type="file" name="file" id="classifyImageInput" accept="image/*" required>
+        <button type="submit">Classify</button>
+    </form>
+
+    <h2>Response:</h2>
+    <pre id="result"></pre>
+</div>
+
+<script>
+    // Preview the uploaded image
+    function previewImage() {
+        const input = document.getElementById('imageInput');
+        const preview = document.getElementById('imagePreview');
+        const file = input.files[0];
+        const reader = new FileReader();
+
+        reader.onloadend = function() {
+            preview.src = reader.result;
+            preview.style.display = 'block';
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = '#';
+            preview.style.display = 'none';
+        }
+    }
+
+    async function classifyImage(event) {
+        event.preventDefault(); // Prevent default form submission behavior (page reload)
+        const formData = new FormData(document.getElementById('classifyForm'));
+
+        try {
+            const response = await fetch('http://localhost:5000/classify/', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const jsonResponse = await response.json();
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}, message: ${JSON.stringify(jsonResponse)}`);
+            }
+
+            document.getElementById('result').innerHTML = `
+                <strong>Class:</strong> ${jsonResponse.class}
+                <button class="copy-button" onclick="copyToClipboard('${jsonResponse.class}')">Copy</button><br>
+                <strong>Confidence:</strong> ${jsonResponse.confidence}
+            `;
+            document.getElementById('result').style.display = 'block';
+        } catch (error) {
+            console.error('Error classifying image:', error);
+            document.getElementById('result').innerText = 'Error classifying image: ' + error.message;
+            document.getElementById('result').style.display = 'block';
+        }
+    }
+
+    // Copy text to clipboard
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Class copied to clipboard!');
+        }).catch(err => {
+            console.error('Could not copy text: ', err);
+        });
+    }
+</script>
+
     </div>
 </body>
 </html>

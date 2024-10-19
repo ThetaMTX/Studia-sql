@@ -7,8 +7,27 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'patients/edit_add.css' %}">
     <script>
+        function previewImage() {
+            const input = document.getElementById('imageInput');
+            const preview = document.getElementById('imagePreview');
+            const file = input.files[0];
+            const reader = new FileReader();
+
+            reader.onloadend = function() {
+                preview.src = reader.result;
+                preview.style.display = 'block';
+            };
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '#';
+                preview.style.display = 'none';
+            }
+        }
+
         async function classifyImage(event) {
-            event.preventDefault();
+            event.preventDefault(); // Prevent default form submission behavior (page reload)
             const formData = new FormData(document.getElementById('classifyForm'));
 
             try {
@@ -36,6 +55,7 @@
             }
         }
 
+        // Copy text to clipboard
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
                 alert('Class copied to clipboard!');
@@ -51,13 +71,16 @@
 
         <form method="post" enctype="multipart/form-data" id="editForm">
             {% csrf_token %}
+
+            <!-- Image preview logic -->
             <label for="id_image">Image:</label>
-            {% if form.image.value %}
-                <img src="{{ form.image.value.url }}" alt="Examination Image" style="width: 100px;">
+            {% if form.images.value %}
+                <img id="imagePreview" src="{{ form.images.value.url }}" alt="Examination Image" style="width: 512px;">
             {% else %}
+                <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 100px;">
                 No image uploaded.
             {% endif %}
-            {{ form.images }}
+            <input type="file" id="imageInput" name="images" accept="image/*" onchange="previewImage();">
 
             <label for="id_description">Description:</label>
             {{ form.description }}
@@ -67,14 +90,16 @@
 
         <a href="{% url 'examination_list' patient.pk %}" class="back-button">Back to Examination List</a>
 
+        <!-- Classify Image Form -->
         <div class="classify-container">
             <h2>Classify Image</h2>
             <form id="classifyForm" onsubmit="classifyImage(event)">
                 <label for="classify_image">Select Image for Classification:</label>
-                <input type="file" name="file" accept="image/*" required>
+                <input type="file" name="file" id="classifyImageInput" accept="image/*" required>
 
                 <button type="submit">Classify</button>
             </form>
+
             <h2>Response:</h2>
             <pre id="result"></pre>
         </div>
