@@ -30,7 +30,6 @@ This project is a web application built with Django and FastAPI that allows user
 1. Clone the repository:
 ```
    git clone https://github.com/ThetaMTX/Studia-sql
-   cd your-repo-name
 ```
 2. Create and activate a virtual environment:
 # Create a virtual environment
