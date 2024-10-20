@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Patient, Examination
 from .forms import PatientForm, ExaminationForm
 from django.contrib.auth.decorators import login_required
-
+from django.urls import reverse
+from django.contrib import messages
 
 @login_required
 def patient_list(request):
@@ -59,8 +60,10 @@ def edit_patient(request, pk):
 @login_required
 def delete_patient(request, pk):
     patient = get_object_or_404(Patient, pk=pk)
-    patient.delete()
-    return redirect('patient_list')
+    if request.method == 'POST':
+        patient.delete()
+        messages.success(request, 'Patient has been successfully deleted.')
+        return redirect(reverse('patient_list'))
 
 
 @login_required
@@ -103,8 +106,10 @@ def delete_examination(request, patient_pk, exam_pk):
         return redirect('examination_list', pk=patient.pk)  # Redirect to the examination list
 
     return render(request, 'patients/delete_examination.html', {'examination': examination})
-
-
+@login_required
+def  delete_patient_confirmation(request, pk):
+    patient = get_object_or_404(Patient, pk=pk)
+    return render(request, 'patients/patient_confirm_delete.html', {'patient': patient})
 
 @login_required
 def edit_examination(request, examination_pk, patient_pk):

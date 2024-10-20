@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Patient Confirmation</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'patients/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Confirm Deletion</h2>
+        <p>Are you sure you want to delete patient: <strong>{{ patient.first_name }} {{ patient.last_name }}</strong>?</p>
+
+        <!-- Delete form -->
+        <form method="post" action="{% url 'delete_patient' patient.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="delete-button">Yes, Delete Patient</button>
+        </form>
+
+        <!-- Back button to cancel the deletion -->
+        <a href="{% url 'patient_list' %}" class="cancel-button">No, Go Back</a>
+    </div>
+</body>
+</html>
+</html>

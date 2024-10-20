@@ -5,12 +5,14 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 from .views import patient_list, edit_patient, edit_examination
+from .views import delete_patient_confirmation, delete_patient
 
 urlpatterns = [
     path('', RedirectView.as_view(url='/login/')),  # Redirect root URL to login page
     path('patients/', views.patient_list, name='patient_list'),
     path('add/', views.add_patient, name='add_patient'),
-    path('<int:pk>/delete/', views.delete_patient, name='delete_patient'),
+    path('patient/<int:pk>/delete/', delete_patient_confirmation, name='delete_patient_confirmation'),
+    path('patient/<int:pk>/delete/confirm/', delete_patient, name='delete_patient'),
     path('<int:pk>/examinations/', views.examination_list, name='examination_list'),
     path('<int:pk>/examinations/add/', views.add_examination, name='add_examination'),
     path('<int:patient_pk>/examinations/<int:exam_pk>/delete/', views.delete_examination, name='delete_examination'),
