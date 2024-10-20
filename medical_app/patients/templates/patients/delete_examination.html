@@ -1,4 +1,15 @@
-<h1>Delete Examination</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Patient Confirmation</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'patients/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+<h2>Delete Examination</h2>
 {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'patients/styles.css' %}">
 <p>Are you sure you want to delete the examination for {{ examination.date }}?</p>
@@ -8,3 +19,6 @@
     <button type="submit">Confirm Delete</button>
 </form>
 <a href="{% url 'examination_list' examination.patient.id %}">Cancel</a>
+</div>
+</body>
+</html>
