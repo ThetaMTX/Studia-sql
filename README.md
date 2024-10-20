@@ -29,8 +29,7 @@ This project is a web application built with Django and FastAPI that allows user
 
 1. Clone the repository:
 ```
-   git clone https://github.com/yourusername/your-repo-name.git
-   cd your-repo-name
+   git clone https://github.com/ThetaMTX/Studia-sql
 ```
 2. Create and activate a virtual environment:
 # Create a virtual environment
@@ -46,23 +45,23 @@ python -m venv venv
 ```
 source venv/bin/activate
 ```
-3. Install the required packages:
+1. Install the required packages:
 ```
 pip install -r requirements.txt
 ```
-4. Apply database migrations:
+2. Apply database migrations:
 ```
 python manage.py migrate
 ```
-5. Create a superuser (optional):
+3. Create a superuser (optional):
 ```
 python manage.py createsuperuser
 ```
-6. Run the application:
+4. Run the application:
 ```
 python manage.py runserver
 ```
-7. Access the application at
+5. Access the application at
 ```
 http://localhost:8000
 ```
