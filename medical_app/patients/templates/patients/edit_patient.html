@@ -20,6 +20,9 @@
             <label for="id_last_name">Last Name:</label>
             <input type="text" id="id_last_name" name="last_name" value="{{ patient.last_name }}" required>
 
+            <label for="pesel">Pesel:</label>
+            <input type="text" id="pesel" name="pesel" pattern="\d{11}" maxlength="11" value="{{ patient.pesel }}" required>
+
             <label for="id_date_of_birth">Date of Birth:</label>
             <input type="date" id="id_date_of_birth" name="date_of_birth" value="{{ patient.date_of_birth|date:'Y-m-d' }}" required>
 

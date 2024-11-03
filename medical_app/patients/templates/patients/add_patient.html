@@ -1,4 +1,14 @@
-<h1>Add Patient</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Patient Confirmation</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'patients/styles.css' %}">
+</head>
+<body>
+    <div class="container"><h1>Add Patient</h1>
 {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'patients/edit_add.css' %}">
 <form method="POST">
@@ -7,3 +17,6 @@
     <button type="submit">Add Patient</button>
 </form>
 <a href="{% url 'patient_list' %}" class="back-button">Back to Patient List</a>
+</div>
+</body>
+</html>

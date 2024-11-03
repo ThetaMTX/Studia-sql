@@ -20,7 +20,7 @@
         <ul>
             {% for patient in patients %}
                 <li>
-                    {{ patient.first_name }} {{ patient.last_name }} - Date of Birth: {{ patient.date_of_birth }}
+                    {{ patient.first_name }} {{ patient.last_name }} - Date of Birth: {{ patient.date_of_birth }} Pesel: {{ patient.pesel }}
                     <a href="{% url 'examination_list' patient.pk %}">View Examinations</a>
                     <a href="{% url 'edit_patient' patient.pk %}">Edit</a>
                     <a href="{% url 'delete_patient_confirmation' patient.pk %}" class="delete-link">Delete</a>
