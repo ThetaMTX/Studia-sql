@@ -7,9 +7,26 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'patients/styles.css' %}">
 </head>
+<style>
+    .button {
+        float: right;
+        padding: 10px;
+        background-color: #f44336;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
 <body>
+
     <div class="container">
-        <a href="{% url 'logout' %}" style="float: right; padding: 10px; background-color: #f44336; color: white; border: none; border-radius: 5px; text-decoration: none;">Logout</a>
+        <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <a href="#" class="button" onclick="document.getElementById('logout-form').submit(); return false;">Logout</a>
+            </form>
         <h1>Patients List</h1>
 
         <div>
