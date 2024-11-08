@@ -19,11 +19,9 @@ LOGOUT_REDIRECT_URL = 'login'
 import os
 from pathlib import Path
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -35,7 +33,6 @@ SECRET_KEY = 'django-insecure-zkyuumu+*4*c)8=#k8-o%g1_zojfk11$b+n_5s0=g6)687+ehx
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -60,8 +57,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
-
 ROOT_URLCONF = 'medical_app.urls'
 
 TEMPLATES = [
@@ -82,7 +77,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'medical_app.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
@@ -92,7 +86,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -112,7 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -123,7 +115,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
@@ -136,6 +127,6 @@ STATIC_URL = 'static/patients/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 GRAPH_MODELS = {
-  'all_applications': True,
+  'all_applications': False,
   'group_models': True,
 }
