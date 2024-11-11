@@ -1,6 +1,7 @@
 from django import forms
 from .models import Patient, Examination
 
+
 class PatientForm(forms.ModelForm):
     class Meta:
         model = Patient
@@ -8,6 +9,7 @@ class PatientForm(forms.ModelForm):
         widgets = {
             'date_of_birth': forms.DateInput(attrs={'type': 'date'})
         }
+
 
 class ExaminationForm(forms.ModelForm):
     class Meta:

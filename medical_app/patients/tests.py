@@ -30,9 +30,11 @@ class ExaminationModelTests(TestCase):
         examination = Examination.objects.create(
             patient=self.patient,
             description="Death",
-            date="1558-09-16"
+            date="1558-09-16",
+            images="test.jpg"
         )
         self.assertEqual(examination.description, "Death")
+        self.assertEqual(examination.images, "test.jpg")
         self.assertEqual(examination.patient, self.patient)
 
 
@@ -54,7 +56,7 @@ class PatientViewsTests(TestCase):
             'last_name': 'Brown',
             'date_of_birth': '2000-08-08'
         })
-        self.assertEqual(response.status_code, 302)  # Should redirect after a successful add
+        self.assertEqual(response.status_code, 302)  #Redirect after a successful add
         self.assertTrue(Patient.objects.filter(first_name="Alice").exists())
 
 
@@ -82,7 +84,8 @@ class IntegrationTests(TestCase):
 
         response = self.client.post(reverse('add_examination', args=[patient.id]), {
             'description': 'Skin exam test',
-            'date': '2024-02-15'
+            'date': '2024-02-15',
+            'images': 'test.jpg'
         })
         self.assertEqual(response.status_code, 302)  # Should redirect on success
         self.assertTrue(Examination.objects.filter(patient=patient, description='Skin exam test').exists())

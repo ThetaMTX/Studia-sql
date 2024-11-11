@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.contrib import messages
 
+
 @login_required
 def patient_list(request):
     sort_by = request.GET.get('sort', 'last_name')  # Default sorting by first name
@@ -106,10 +107,13 @@ def delete_examination(request, patient_pk, exam_pk):
         return redirect('examination_list', pk=patient.pk)  # Redirect to the examination list
 
     return render(request, 'patients/delete_examination.html', {'examination': examination})
+
+
 @login_required
-def  delete_patient_confirmation(request, pk):
+def delete_patient_confirmation(request, pk):
     patient = get_object_or_404(Patient, pk=pk)
     return render(request, 'patients/patient_confirm_delete.html', {'patient': patient})
+
 
 @login_required
 def edit_examination(request, examination_pk, patient_pk):
@@ -124,4 +128,5 @@ def edit_examination(request, examination_pk, patient_pk):
     else:
         form = ExaminationForm(instance=examination)
 
-    return render(request, 'patients/edit_examination.html', {'form': form, 'patient': patient, 'examination': examination})
+    return render(request, 'patients/edit_examination.html',
+                  {'form': form, 'patient': patient, 'examination': examination})
