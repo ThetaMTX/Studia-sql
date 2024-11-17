@@ -8,7 +8,7 @@ from .views import patient_list, edit_patient, edit_examination
 from .views import delete_patient_confirmation, delete_patient
 
 urlpatterns = [
-    path('skin_changes/', RedirectView.as_view(url='/login/')),  # Redirect root URL to login page
+    path('', RedirectView.as_view(url='/login/')),  # Redirect root URL to login page
     path('patients/', views.patient_list, name='patient_list'),
     path('add/', views.add_patient, name='add_patient'),
     path('patient/<int:pk>/delete/', delete_patient_confirmation, name='delete_patient_confirmation'),

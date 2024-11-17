@@ -53,7 +53,7 @@ def edit_patient(request, pk):
             form.save()
             return redirect('patient_list')  # Redirect to the patient list after saving
     else:
-        form = PatientForm(instance=patient)  # Pre-fill the form with the existing patient data
+        form = PatientForm(instance=patient)
 
     return render(request, 'patients/edit_patient.html', {'form': form, 'patient': patient})
 
@@ -67,19 +67,6 @@ def delete_patient(request, pk):
         return redirect(reverse('patient_list'))
 
 
-@login_required
-def add_examination(request, patient_pk):
-    patient = get_object_or_404(Patient, pk=patient_pk)
-    if request.method == 'POST':
-        form = ExaminationForm(request.POST, request.FILES)  # Ensure request.FILES is included
-        if form.is_valid():
-            examination = form.save(commit=False)
-            examination.patient = patient
-            examination.save()
-            return redirect('examination_list', patient_pk=patient.pk)
-    else:
-        form = ExaminationForm()
-    return render(request, 'add_examination.html', {'form': form, 'patient': patient})
 
 
 @login_required
